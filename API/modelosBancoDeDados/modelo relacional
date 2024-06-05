@@ -1,0 +1,38 @@
+Usuarios
+------------------------------------------------
+| id_usuario (PK)    | NUMERIC(7)  |
+| nome_completo      | VARCHAR(20) | ""
+| nome_acesso        | VARCHAR(20) | ""
+| senha_acesso       | VARCHAR(20) | ""
+| nivel_usuario      | NUMERIC     |
+| nascimento         | DATETIME    | "YY"YY-MM-DD"
+| telefone           | VARCHAR(20) | ""
+------------------------------------------------
+
+Categorias
+------------------------------------------------
+| id_categoria (PK)    | NUMERIC(7)  |
+| nome_categoria       | VARCHAR(20) | ""
+| descricao_categoria  | VARCHAR(45) | ""
+| imagem_categoria     | VARCHAR(200)| ""
+------------------------------------------------
+
+Noticias
+---------------------------------------------------------------
+| id_noticia (PK)         | NUMERIC(7)  |
+| titulo                  | VARCHAR(45) |""
+| descricao_noticia       | VARCHAR(200)| ""
+| url_noticia             | VARCHAR(200)| ""
+| url_imagem_noticia      | VARCHAR(200)| ""
+| data_cadastro           | DATETIME    | "YY"YY-MM-DD"
+| data_expira             | DATETIME    | "YY"YY-MM-DD"
+| ref_jornalista (FK)     | NUMERIC(7)  |
+| ref_categoria (FK)      | NUMERIC(7)  |
+---------------------------------------------------------------
+
+Preferencias
+------------------------------------
+| id_preferencia (PK)   | NUMERIC(7)  |
+| pref_usuario (FK)     | NUMERIC(7)  |
+| pref_categoria (FK)   | NUMERIC(7)  |
+------------------------------------

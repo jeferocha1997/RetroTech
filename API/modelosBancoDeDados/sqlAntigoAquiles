@@ -1,0 +1,138 @@
+
+
+
+
+CREATE DATABASE retro;
+USE retro;
+
+-- Tabela: Usuario
+CREATE TABLE Usuario (
+    id_usuario NUMERIC(7) IDENTITY(1,1) PRIMARY KEY NOT NULL,
+    nome_completo_usuario VARCHAR(20) NOT NULL,
+	nome_usuario VARCHAR(20) NOT NULL,
+    senha_usuario VARCHAR(20) NOT NULL,
+	tipo_usuario NUMERIC NOT NULL,
+	data_nasc_usuario DATETIME NOT NULL,
+	telefone_usuario VARCHAR(20) NOT NULL
+);
+
+-- Tabela: Categoria
+CREATE TABLE Categoria (
+    id_categoria NUMERIC(7) IDENTITY(1,1) PRIMARY KEY NOT NULL,
+    nome_categoria VARCHAR(20) NOT NULL,
+	descricao_categoria VARCHAR(45) NOT NULL,
+    url_imagem_categoria VARCHAR(200) NOT NULL
+);
+
+-- Tabela: Cadastro_Noticia_Categoria
+CREATE TABLE Cadastro_Noticia_Categoria (
+    id_noticia NUMERIC(7) IDENTITY(1,1) PRIMARY KEY NOT NULL,
+    titulo_noticia VARCHAR(45) NOT NULL,
+    descricao_noticia VARCHAR(200) NOT NULL,
+    url_noticia VARCHAR(200) NOT NULL,
+    url_imagem_noticia VARCHAR(200) NOT NULL,
+    data_inicio_noti DATETIME NOT NULL,
+    data_fim_noti DATETIME NOT NULL,
+    usuario_id_usuario NUMERIC(7) NOT NULL,
+    categoria_id_categoria NUMERIC(7) NOT NULL,
+    FOREIGN KEY (usuario_id_usuario) REFERENCES Usuario(id_usuario),
+    FOREIGN KEY (categoria_id_categoria) REFERENCES Categoria(id_categoria)
+);
+
+-- Tabela: Usuario_Preferencia_Categoria
+CREATE TABLE Usuario_Preferencia_Categoria (
+    id_usu_pref_categoria NUMERIC(7) IDENTITY(1,1) PRIMARY KEY NOT NULL,
+    usuario_id_usuario NUMERIC(7) NOT NULL,
+    categoria_id_categoria NUMERIC(7) NOT NULL,
+    FOREIGN KEY (usuario_id_usuario) REFERENCES Usuario(id_usuario),
+    FOREIGN KEY (categoria_id_categoria) REFERENCES Categoria(id_categoria)
+);
+
+-- Populando a tabela Usuario
+INSERT INTO Usuario (nome_completo_usuario, nome_usuario, senha_usuario, tipo_usuario, data_nasc_usuario, telefone_usuario)
+VALUES
+('João da Silva', 'joaosilva', 'senha123', 2, '2000-01-01', '49988952148'),
+('Maria Oliveira', 'mariaoliveira', 'senha123', 2, '1998-05-15', '49988756321'),
+('Jorge Santos', 'jorgesantos', 'senha123', 2, '1985-07-20', '49991254787'),
+('Ana Souza', 'anasouza', 'senha123', 2, '1978-09-10', '49985632479'),
+('Carlos Pereira', 'carlospereira', 'senha123', 2, '1970-03-25', '49999931591');
+
+-- Populando a tabela Categoria
+INSERT INTO Categoria (nome_categoria, descricao_categoria, url_imagem_categoria)
+VALUES
+('Saúde', 'Notícias relacionadas à saúde', 'www.link_da_imagem.com'),
+('Tecnologia', 'Últimas novidades em tecnologia', 'www.link_da_imagem.com'),
+('Notícias', 'Notícias gerais', 'www.link_da_imagem.com');
+
+
+-- Notícias relacionadas à Saúde
+INSERT INTO Cadastro_Noticia_Categoria (titulo_noticia, descricao_noticia, url_noticia, url_imagem_noticia, data_inicio_noti, data_fim_noti, usuario_id_usuario, categoria_id_categoria)
+VALUES
+('Benefícios da meditação para a saúde', 'Pesquisadores descobrem que a meditação regular pode reduzir o estresse.', 'https://site_da_noticia.com', 'https://www.link_da_imagem.com', '2024-04-29', '2024-05-29', 1, 1),
+('Dieta rica em vegetais previne doenças', 'Pesquisa sugere que dietas ricas em vegetais podem reduzir o risco de doenças cardíacas.', 'https://site_da_noticia.com', 'https://www.link_da_imagem.com', '2024-04-29', '2024-05-29', 2, 1);
+
+-- Notícias relacionadas à Tecnologia
+INSERT INTO Cadastro_Noticia_Categoria (titulo_noticia, descricao_noticia, url_noticia, url_imagem_noticia, data_inicio_noti, data_fim_noti, usuario_id_usuario, categoria_id_categoria)
+VALUES
+('Empresa anuncia novo smartphone', 'A empresa XYZ lança seu mais recente smartphone.', 'https://exemplo.com/noticia3', 'url_imagem_noticia3.jpg', '2024-04-29', '2024-05-29', 3, 2),
+('Startup de tecnologia arrecada investimento', 'A startup ABC recebeu um investimento de milhões para desenvolver novas tecnologias.', 'https://exemplo.com/noticia4', 'url_imagem_noticia4.jpg', '2024-04-29', '2024-05-29', 4, 2);
+
+-- Notícias gerais
+INSERT INTO Cadastro_Noticia_Categoria (titulo_noticia, descricao_noticia, url_noticia, url_imagem_noticia, data_inicio_noti, data_fim_noti, usuario_id_usuario, categoria_id_categoria)
+VALUES
+('Acidente de trânsito causa congestionamento', 'Acidente envolvendo vários veículos causa congestionamento.', 'https://exemplo.com/noticia5', 'url_imagem_noticia5.jpg', '2024-04-29', '2024-05-29', 5, 3),
+('Evento adiado devido ao clima', 'Evento é adiado devido a condições climáticas adversas.', 'https://exemplo.com/noticia6', 'url_imagem_noticia6.jpg', '2024-04-29', '2024-05-29', 1, 3);
+
+-- Preferências de notícia para o usuário João da Silva
+INSERT INTO Usuario_Preferencia_Categoria (usuario_id_usuario, categoria_id_categoria)
+VALUES (1, 1), -- Saúde
+       (1, 2); -- Tecnologia
+
+-- Preferências de notícia para o usuário Maria Oliveira
+INSERT INTO Usuario_Preferencia_Categoria (usuario_id_usuario, categoria_id_categoria)
+VALUES (2, 2), -- Tecnologia
+       (2, 3); -- Notícias
+
+-- Preferências de notícia para o usuário Pedro Santos
+INSERT INTO Usuario_Preferencia_Categoria (usuario_id_usuario, categoria_id_categoria)
+VALUES (3, 1), -- Saúde
+       (3, 3); -- Notícias
+
+-- Preferências de notícia para o usuário Ana Souza
+INSERT INTO Usuario_Preferencia_Categoria (usuario_id_usuario, categoria_id_categoria)
+VALUES (4, 1), -- Saúde
+       (4, 2); -- Tecnologia
+
+-- Preferências de notícia para o usuário Carlos Pereira
+INSERT INTO Usuario_Preferencia_Categoria (usuario_id_usuario, categoria_id_categoria)
+VALUES (5, 3); -- Notícias
+
+
+
+-- noticias mais recentes
+SELECT *
+FROM Cadastro_Noticia_Categoria
+WHERE data_fim_noti >= GETDATE()
+ORDER BY data_inicio_noti DESC;
+
+--por categoria
+
+SELECT *
+FROM Cadastro_Noticia_Categoria
+WHERE categoria_id_categoria = 2
+AND data_fim_noti >= GETDATE()
+ORDER BY data_inicio_noti DESC;
+
+SELECT U.nome_completo_usuario, C.nome_categoria
+FROM Usuario_Preferencia_Categoria AS UPC
+JOIN Usuario AS U ON UPC.usuario_id_usuario = U.id_usuario
+JOIN Categoria AS C ON UPC.categoria_id_categoria = C.id_categoria;
+
+--preferencias do usuario 1
+SELECT CNC.titulo_noticia, CNC.descricao_noticia, CNC.url_noticia, CNC.url_imagem_noticia
+FROM Cadastro_Noticia_Categoria AS CNC
+JOIN Usuario_Preferencia_Categoria AS UPC ON CNC.categoria_id_categoria = UPC.categoria_id_categoria
+WHERE UPC.usuario_id_usuario = 1;
+
+
+select * from Usuario_Preferencia_Categoria

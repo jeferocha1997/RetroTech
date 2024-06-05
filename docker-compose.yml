@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: abex
+    environment:
+      SA_PASSWORD: "**Senh4**"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+#    volumes:
+#      - .\API\modelosBancoDeDados\modeloSQL.sql:/modelosBancoDeDados/modeloSQL.sql
+    networks:
+      - mynetwork
+#  api:
+#    image: api
+#    container_name: api
+#    environment:
+#      DB_PORT: 1433
+#      DB_USER: "sa"
+#      DB_PASSWORD: "**Senh4**"
+#      DB_SERVER: "localhost"
+#      DB_DATABASE: "DBA"
+#    ports:
+#      - "3000:3000"
+
+networks:
+  mynetwork:
+    driver: bridge

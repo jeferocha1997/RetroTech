@@ -1,0 +1,38 @@
+#systemctl status docker
+#systemctl start docker
+
+#comando para criar uma imagem Docker passando credenciais do banco:
+    usuario: sa
+    senha:**Senh4**
+    porta: 1433
+    e acrescentando SQL server
+
+    sudo docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=**Senh4**"    -p 1433:1433 --name abex --hostname sql1    -d    mcr.microsoft.com/mssql/server:2022-latest
+
+#Necessario criar um banco local, codigo SQL na pasta /modelos
+
+#Para rodar tudo sincronizadamente e fora do localhost precisa ajustar os documentos Dockerfile e docker-compoose SPRINT 3
+
+#Dentro da pasta insomnia encontram todos os testes apresentados na sprint 2 - Útil para os testes
+
+# Para instalar localmente as dependencias E RODAR O SERVIDOR LOCALMENTE, entrar na pasta da /API pelo cmd
+    npm install
+    npm start
+
+# Dentro da pasta /src encontra toda a lógica do CRUD, separados em 4 pastas:
+    controllers: logica para manipular o objeto e atualizar o banco;
+    database: logica para conexao com o banco;
+    middleware:
+        authMiddleware: autenticar token para ter uma sessao de login de uma hora
+        nivelUsuario: verificar o nivel para acesso a determinadas rotas;
+        routes: URL de acesso a API;
+
+# Ao realizar login é devolvido como resposta(objeto) um token, nas rotas estou aplicando esses recursos de Middleware(validações);
+
+#dentro de /src os arquivos app.js | config.js | index.js tratam das dependencias, bibliotecas e funcionalidades do servidor;
+
+# Etapas pendentes:
+    verificar algumas validações / testes de segurança
+    ajustar a logica conforme possiveis mudanças no front
+    conferir lógica de inserção no banco
+    rodar a aplicação fora da maquina Local (DOCKER)
